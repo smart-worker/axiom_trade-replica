@@ -1,17 +1,14 @@
 import {
-  List,
-  LayoutGrid,
   HelpCircle,
+  LayoutGrid,
   Bookmark,
   AppWindow,
   Maximize,
   RefreshCw,
-  ChevronLeft,
-  ChevronRight,
 } from "lucide-react";
 import { BnbIcon } from "@/components/icons";
 import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
+import { SharedSettings } from "./shared-settings";
 
 export function DashboardHeader() {
   return (
@@ -28,10 +25,7 @@ export function DashboardHeader() {
           <LayoutGrid className="h-4 w-4" />
         </Button>
 
-        <Button variant="ghost" className="h-8 gap-2 px-3">
-          <List className="h-4 w-4" />
-          <span>Display</span>
-        </Button>
+        <SharedSettings />
 
         <Button variant="ghost" size="icon" className="h-8 w-8">
           <Bookmark className="h-4 w-4" />
@@ -45,18 +39,6 @@ export function DashboardHeader() {
         <Button variant="ghost" size="icon" className="h-8 w-8">
           <RefreshCw className="h-4 w-4" />
         </Button>
-
-        <Separator orientation="vertical" className="mx-2 h-6" />
-
-        <div className="flex items-center gap-1 rounded-md border border-input p-1">
-          <Button variant="ghost" size="icon" className="h-6 w-6">
-            <ChevronLeft className="h-4 w-4" />
-          </Button>
-          <span className="font-semibold text-foreground">1</span>
-          <Button variant="ghost" size="icon" className="h-6 w-6">
-            <ChevronRight className="h-4 w-4" />
-          </Button>
-        </div>
       </div>
     </header>
   );

@@ -84,7 +84,7 @@ const ChefIcon = (props: React.SVGProps<SVGSVGElement>) => (
     strokeLinejoin="round"
     {...props}
   >
-    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+    <path d="M20 21v-2a4_4_0_0_0-4-4H8a4_4_0_0_0-4_4v2" />
     <path d="M8.5 2.5a2.5 2.5 0 0 1 5 0V5h-5V2.5z" />
   </svg>
 );
@@ -235,17 +235,17 @@ export function TokenCard({ token, type }: TokenCardProps) {
         </div>
 
         {/* Center Section */}
-        <div className="flex flex-col justify-between self-stretch gap-1">
+        <div className="flex min-w-0 flex-col justify-between self-stretch gap-1">
           {/* Top part of center */}
           <div className="flex flex-col gap-1">
             <div className="flex items-baseline gap-1.5">
-              <h3 className="text-sm font-bold text-foreground truncate">
+              <h3 className="truncate text-sm font-bold text-foreground">
                 {token.name}
               </h3>
-              <p className="text-xs text-muted-foreground truncate">
+              <p className="flex-shrink-0 text-xs text-muted-foreground">
                 {token.subtitle}
               </p>
-              <Copy className="h-3 w-3 text-muted-foreground flex-shrink-0 cursor-pointer" />
+              <Copy className="h-3 w-3 flex-shrink-0 cursor-pointer text-muted-foreground" />
             </div>
 
             <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[10px] text-muted-foreground">
