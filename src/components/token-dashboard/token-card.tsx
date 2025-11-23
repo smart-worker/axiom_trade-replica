@@ -12,14 +12,31 @@ import {
   Ghost,
   Zap,
   Link as LinkIcon,
+  Check,
+  Camera,
+  EyeOff,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import type { StatTag, Token } from "@/lib/types";
+import type { Token } from "@/lib/types";
 import { Button } from "@/components/ui/button";
-import { SolIcon, GlobeIcon, PillIcon, CubesIcon } from "../icons";
+import {
+  SolIcon,
+  GlobeIcon,
+  PillIcon,
+  CubesIcon,
+  SlashIcon,
+  ChefHatOffIcon,
+} from "../icons";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
+import { TokenHoverCard } from "./token-hover-card";
 
 interface TokenCardProps {
   token: Token;
+  type: "new" | "final-stretch" | "migrated";
 }
 
 const formatCurrency = (value: number) => {
@@ -91,7 +108,7 @@ const TargetIcon = (props: React.SVGProps<SVGSVGElement>) => (
   </svg>
 );
 
-const tagIcons: Record<StatTag["icon"], React.FC<any>> = {
+const tagIcons: Record<string, React.FC<any>> = {
   user: UserIcon,
   chef: ChefIcon,
   target: TargetIcon,
@@ -99,7 +116,15 @@ const tagIcons: Record<StatTag["icon"], React.FC<any>> = {
   cubes: CubesIcon,
 };
 
-const Tag: React.FC<{ tag: StatTag }> = ({ tag }) => {
+const Tag: React.FC<{
+  tag: {
+    icon: string;
+    value: number;
+    unit: string;
+    color: string;
+    duration?: string;
+  };
+}> = ({ tag }) => {
   const Icon = tagIcons[tag.icon];
   const colorClass = tag.color === "red" ? "text-red-400" : "text-green-400";
   return (
@@ -123,24 +148,87 @@ const Tag: React.FC<{ tag: StatTag }> = ({ tag }) => {
   );
 };
 
-export function TokenCard({ token }: TokenCardProps) {
+export function TokenCard({ token, type }: TokenCardProps) {
+  const borderClass = {
+    new: "border-green-400",
+    "final-stretch": "border-red-500",
+    migrated: "border-yellow-400",
+  }[type];
+
+  const iconBgClass = {
+    new: "bg-green-400",
+    "final-stretch": "bg-red-500",
+    migrated: "bg-yellow-400",
+  }[type];
+
+  const icon = {
+    new: <LinkIcon className="h-3 w-3 text-card" strokeWidth={3} />,
+    "final-stretch": <SlashIcon className="h-4 w-4 text-card" />,
+    migrated: <Check className="h-3 w-3 text-card" strokeWidth={3} />,
+  }[type];
+
   return (
-    <div className="p-3 font-body aspect-[4.6/1]">
+    <div className="group bg-card p-3 font-body hover:bg-accent/50">
       <div className="grid h-full grid-cols-[auto_1fr_auto] items-start gap-3">
         {/* Left Section */}
-        <div className="flex flex-col items-center gap-1.5">
-          <div className="relative h-16 w-16 flex-shrink-0">
-            <Image
-              src={token.imageUrl}
-              alt={token.name}
-              width={64}
-              height={64}
-              className="rounded-md border-2 border-green-400"
-            />
-            <div className="absolute -bottom-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-green-400">
-              <LinkIcon className="h-3 w-3 text-card" strokeWidth={3} />
-            </div>
+        <div className="relative flex flex-col items-center gap-1.5">
+          <div className="absolute left-1 top-1/2 z-20 hidden -translate-y-1/2 flex-col gap-0.5 group-hover:flex">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="h-6 w-6 bg-card/80 text-muted-foreground hover:bg-transparent hover:text-blue-500 backdrop-blur-sm"
+            >
+              <EyeOff className="h-3 w-3" />
+            </Button>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="h-6 w-6 bg-card/80 text-muted-foreground hover:bg-transparent hover:text-blue-500 backdrop-blur-sm"
+            >
+              <ChefHatOffIcon className="h-3 w-3" />
+            </Button>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="h-6 w-6 bg-card/80 text-muted-foreground hover:bg-transparent hover:text-blue-500 backdrop-blur-sm"
+            >
+              <EyeOff className="h-3 w-3" />
+            </Button>
           </div>
+          <HoverCard openDelay={200} closeDelay={100}>
+            <HoverCardTrigger asChild>
+              <div className="relative cursor-pointer">
+                <div className="relative h-16 w-16 flex-shrink-0">
+                  <Image
+                    src={token.imageUrl}
+                    alt={token.name}
+                    width={64}
+                    height={64}
+                    className={cn("rounded-md border-2", borderClass)}
+                  />
+                  <div
+                    className={cn(
+                      "absolute -bottom-1 -right-1 z-10 flex h-5 w-5 items-center justify-center rounded-full",
+                      iconBgClass
+                    )}
+                  >
+                    {icon}
+                  </div>
+                  <div className="absolute inset-0 z-0 hidden items-center justify-center rounded-md bg-black/50 group-hover:flex">
+                    <Camera className="h-6 w-6 text-white" />
+                  </div>
+                </div>
+              </div>
+            </HoverCardTrigger>
+            <HoverCardContent
+              className="w-[240px] border-border bg-[#101A21] p-0"
+              side="bottom"
+              align="start"
+              sideOffset={10}
+            >
+              <TokenHoverCard token={token} />
+            </HoverCardContent>
+          </HoverCard>
           <span className="font-code text-[10px] text-muted-foreground">
             {token.creatorAddress}
           </span>

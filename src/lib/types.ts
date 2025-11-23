@@ -28,9 +28,12 @@ export type Token = {
   isNew?: boolean;
   isFinalStretch?: boolean;
   isMigrated?: boolean;
+  similarTokens?: Omit<Token, 'tags' | 'stats' | 'similarTokens'>[];
 };
 
 export type SortConfig = {
   key: keyof Token;
   direction: 'ascending' | 'descending';
 } | null;
+
+export type TokenColumnType = 'new' | 'final-stretch' | 'migrated';

@@ -1,6 +1,75 @@
 import { Token } from './types';
 
-const tokens: Token[] = [
+const allTokensForSimilarity: Omit<Token, 'tags' | 'stats' | 'isNew' | 'isFinalStretch' | 'isMigrated' | 'similarTokens'>[] = [
+    {
+      id: 'nectar-similar-1',
+      name: 'core',
+      subtitle: 'NectarFi-SOL',
+      imageUrl: 'https://picsum.photos/seed/401/100/100',
+      creatorAddress: '5xgH...Jiej',
+      age: '5mo',
+      marketCap: 1520000,
+      volume: 1500,
+      fValue: 0.04,
+      txCount: 7000000,
+      solAmount: 1.5,
+    },
+     {
+      id: 'nectar-similar-2',
+      name: 'SCORE',
+      subtitle: 'Honey-SOL',
+      imageUrl: 'https://picsum.photos/seed/402/100/100',
+      creatorAddress: 'abcdef...ghij',
+      age: '1y',
+      marketCap: 15000,
+      volume: 1000,
+      fValue: 0.03,
+      txCount: 1500,
+      solAmount: 1.1,
+    },
+    {
+      id: 'similar-3',
+      name: 'PEPE',
+      subtitle: 'froggy style',
+      imageUrl: 'https://picsum.photos/seed/3/100/100',
+      creatorAddress: 'Cef3...yPUi',
+      age: '1m',
+      marketCap: 89000,
+      volume: 4200,
+      fValue: 0.021,
+      txCount: 18,
+      solAmount: 0.5,
+    },
+    {
+      id: 'similar-4',
+      name: 'BONK',
+      subtitle: 'the OG bonk',
+      imageUrl: 'https://picsum.photos/seed/4/100/100',
+      creatorAddress: 'Dkl4...zQWs',
+      age: '5m',
+      marketCap: 540000,
+      volume: 25000,
+      fValue: 0.12,
+      txCount: 102,
+      solAmount: 3.4,
+    },
+    {
+      id: 'similar-5',
+      name: 'WIF',
+      subtitle: 'dog wif hat',
+      imageUrl: 'https://picsum.photos/seed/5/100/100',
+      creatorAddress: 'Emn5...aRTy',
+      age: '30m',
+      marketCap: 1200000,
+      volume: 80000,
+      fValue: 0.25,
+      txCount: 250,
+      solAmount: 10.1,
+    },
+];
+
+
+const tokens: Omit<Token, 'similarTokens'>[] = [
   // New Pairs
   {
     id: 'leo-1',
@@ -1330,5 +1399,13 @@ const tokens: Token[] = [
 
 export const getInitialTokens = (): Token[] => {
   // Deep copy to prevent mutation of the original data
-  return JSON.parse(JSON.stringify(tokens));
+  const copiedTokens: Token[] = JSON.parse(JSON.stringify(tokens));
+
+  // Assign random similar tokens
+  return copiedTokens.map(token => {
+    const similarTokensCount = Math.floor(Math.random() * 3); // 0, 1, or 2
+    const shuffled = allTokensForSimilarity.sort(() => 0.5 - Math.random());
+    token.similarTokens = shuffled.slice(0, similarTokensCount);
+    return token;
+  });
 };

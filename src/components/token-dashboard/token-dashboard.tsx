@@ -2,7 +2,6 @@
 
 import { useMemo } from "react";
 import { useTokenStream } from "@/hooks/use-token-stream";
-import type { Token } from "@/lib/types";
 import { TokenColumn } from "./token-column";
 import { TokenDashboardSkeleton } from "./token-dashboard-skeleton";
 import { DashboardHeader } from "./dashboard-header";
@@ -45,13 +44,17 @@ export function TokenDashboard() {
       <DashboardHeader />
       <div className="grid min-h-0 flex-1 grid-cols-1 border-t border-border lg:grid-cols-3">
         <div className="flex flex-col min-h-0 lg:border-r lg:border-border">
-          <TokenColumn title="New Pairs" tokens={newPairs} />
+          <TokenColumn title="New Pairs" tokens={newPairs} type="new" />
         </div>
         <div className="flex flex-col min-h-0 lg:border-r lg:border-border">
-          <TokenColumn title="Final Stretch" tokens={finalStretch} />
+          <TokenColumn
+            title="Final Stretch"
+            tokens={finalStretch}
+            type="final-stretch"
+          />
         </div>
         <div className="flex flex-col min-h-0">
-          <TokenColumn title="Migrated" tokens={migrated} />
+          <TokenColumn title="Migrated" tokens={migrated} type="migrated" />
         </div>
       </div>
     </div>
