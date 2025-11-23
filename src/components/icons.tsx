@@ -1,68 +1,5 @@
 import type { SVGProps } from "react";
 
-export function BtcIcon(props: SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      {...props}
-    >
-      <path d="M4 7h11a5 5 0 0 1 0 10H8" />
-      <path d="M10 4v4" />
-      <path d="M10 16v4" />
-      <path d="M6 10h10" />
-      <path d="M14 10h1a3 3 0 0 1 0 6h-1" />
-    </svg>
-  );
-}
-
-export function EthIcon(props: SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      {...props}
-    >
-      <path d="M12 3v6l6 3-6 9v-6l-6-3z" />
-    </svg>
-  );
-}
-
-export function UsdtIcon(props: SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      {...props}
-    >
-      <path d="M6 12h12" />
-      <path d="M12 18V6" />
-      <path d="M16 6h-8a4 4 0 0 0 0 8h8a4 4 0 0 0 0-8z" />
-    </svg>
-  );
-}
-
 export function BnbIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg
@@ -107,7 +44,7 @@ export function SolIcon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
-export function GenericTokenIcon(props: SVGProps<SVGSVGElement>) {
+export function GlobeIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -122,9 +59,50 @@ export function GenericTokenIcon(props: SVGProps<SVGSVGElement>) {
       {...props}
     >
       <circle cx="12" cy="12" r="10" />
-      <path d="M12 6v12" />
-      <path d="m16 8-4 4-4-4" />
-      <path d="m8 16 4-4 4 4" />
+      <line x1="2" y1="12" x2="22" y2="12" />
+      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+    </svg>
+  );
+}
+
+export function PillIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      {...props}
+    >
+      <path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z" />
+      <path d="m8.5 8.5 7 7" />
+    </svg>
+  );
+}
+
+export function CubesIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      {...props}
+    >
+      <rect width="7" height="7" x="14" y="14" rx="1" />
+      <rect width="7" height="7" x="3" y="14" rx="1" />
+      <rect width="7" height="7" x="14" y="3" rx="1" />
+      <rect width="7" height="7" x="3" y="3" rx="1" />
     </svg>
   );
 }

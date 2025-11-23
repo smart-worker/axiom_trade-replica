@@ -2,26 +2,39 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 function TokenCardSkeleton() {
   return (
-    <div className="rounded-lg border bg-card p-4">
-      <div className="flex items-start justify-between gap-4">
-        <div className="flex items-center gap-3">
-          <Skeleton className="h-10 w-10 rounded-full" />
-          <div>
-            <Skeleton className="h-4 w-24" />
-            <Skeleton className="mt-2 h-3 w-16" />
+    <div className="rounded-lg bg-card p-3">
+      <div className="grid grid-cols-[auto_1fr_auto] gap-3">
+        {/* Left */}
+        <div className="flex flex-col items-center gap-1.5">
+          <Skeleton className="h-[72px] w-[72px] rounded-md" />
+          <Skeleton className="h-3 w-20" />
+        </div>
+
+        {/* Center */}
+        <div className="flex flex-col justify-between">
+          <div className="flex flex-col gap-2">
+            <Skeleton className="h-5 w-32" />
+            <div className="flex gap-3">
+              <Skeleton className="h-4 w-24" />
+            </div>
+          </div>
+          <div className="flex gap-2">
+            <Skeleton className="h-6 w-16 rounded-full" />
+            <Skeleton className="h-6 w-16 rounded-full" />
+            <Skeleton className="h-6 w-16 rounded-full" />
+            <Skeleton className="h-6 w-16 rounded-full" />
           </div>
         </div>
-        <div className="flex flex-col items-end">
-          <Skeleton className="h-4 w-20" />
-          <Skeleton className="mt-2 h-3 w-10" />
+
+        {/* Right */}
+        <div className="flex flex-col justify-between items-end">
+          <div className="flex flex-col gap-1.5 items-end">
+            <Skeleton className="h-4 w-20" />
+            <Skeleton className="h-4 w-16" />
+            <Skeleton className="h-4 w-24" />
+          </div>
+          <Skeleton className="h-9 w-24 rounded-md" />
         </div>
-      </div>
-      <div className="mt-4 flex items-end justify-between">
-        <div className="flex items-center gap-4">
-          <Skeleton className="h-4 w-12" />
-          <Skeleton className="h-4 w-20" />
-        </div>
-        <Skeleton className="h-6 w-24 rounded-full" />
       </div>
     </div>
   );

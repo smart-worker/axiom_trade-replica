@@ -1,13 +1,30 @@
+export type StatTag = {
+  icon: 'user' | 'chef' | 'target' | 'ghost' | 'cubes';
+  value: number;
+  unit: string;
+  color: 'red' | 'green';
+  duration?: string;
+};
+
 export type Token = {
   id: string;
   name: string;
-  symbol: string;
-  icon: string;
-  price: number;
-  priceChange24h: number;
-  priceChange24hPercent: number;
-  volume24h: number;
+  subtitle: string;
+  imageUrl: string;
+  creatorAddress: string;
+  age: string;
   marketCap: number;
+  volume: number;
+  fValue: number;
+  txCount: number;
+  stats: {
+    users: number;
+    candlesticks: number;
+    trophies: number;
+    crowns: string;
+  };
+  tags: StatTag[];
+  solAmount: number;
   isNew?: boolean;
   isFinalStretch?: boolean;
   isMigrated?: boolean;

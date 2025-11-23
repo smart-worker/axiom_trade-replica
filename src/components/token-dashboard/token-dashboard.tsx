@@ -5,9 +5,10 @@ import { useTokenStream } from "@/hooks/use-token-stream";
 import type { Token } from "@/lib/types";
 import { TokenColumn } from "./token-column";
 import { TokenDashboardSkeleton } from "./token-dashboard-skeleton";
+import { DashboardHeader } from "./dashboard-header";
 
 export function TokenDashboard() {
-  const { tokens, isLoading, error } = useTokenStream();
+  const { tokens, isLoading } = useTokenStream();
 
   const newPairs = useMemo(
     () =>
@@ -31,20 +32,28 @@ export function TokenDashboard() {
     [tokens]
   );
 
-  if (error) {
-    // Let the nearest error boundary handle it
-    throw error;
-  }
-
   if (isLoading) {
-    return <TokenDashboardSkeleton />;
+    return (
+      <div className="h-full px-4 sm:px-6 lg:px-8">
+        <TokenDashboardSkeleton />
+      </div>
+    );
   }
 
   return (
-    <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-      <TokenColumn title="New Pairs" tokens={newPairs} />
-      <TokenColumn title="Final Stretch" tokens={finalStretch} />
-      <TokenColumn title="Migrated" tokens={migrated} />
+    <div className="flex h-full flex-col">
+      <DashboardHeader />
+      <div className="grid min-h-0 flex-1 grid-cols-1 border-t border-border lg:grid-cols-3">
+        <div className="flex flex-col min-h-0 lg:border-r lg:border-border">
+          <TokenColumn title="New Pairs" tokens={newPairs} />
+        </div>
+        <div className="flex flex-col min-h-0 lg:border-r lg:border-border">
+          <TokenColumn title="Final Stretch" tokens={finalStretch} />
+        </div>
+        <div className="flex flex-col min-h-0">
+          <TokenColumn title="Migrated" tokens={migrated} />
+        </div>
+      </div>
     </div>
   );
 }

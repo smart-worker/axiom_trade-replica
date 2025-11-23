@@ -1,106 +1,227 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React from "react";
+import Image from "next/image";
 import {
-  BnbIcon,
-  BtcIcon,
-  EthIcon,
-  GenericTokenIcon,
-  SolIcon,
-  UsdtIcon,
-} from "../icons";
+  Search,
+  Users,
+  CandlestickChart,
+  Trophy,
+  Crown,
+  Copy,
+  Ghost,
+  Zap,
+  Link as LinkIcon,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
-import type { Token } from "@/lib/types";
-import { ArrowDown, ArrowUp } from "lucide-react";
+import type { StatTag, Token } from "@/lib/types";
+import { Button } from "@/components/ui/button";
+import { SolIcon, GlobeIcon, PillIcon, CubesIcon } from "../icons";
 
 interface TokenCardProps {
   token: Token;
-  prevToken: Token | undefined;
 }
 
 const formatCurrency = (value: number) => {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    notation: "compact",
-    compactDisplay: "short",
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  }).format(value);
+  if (value >= 1_000_000_000) {
+    return `$${(value / 1_000_000_000).toFixed(2)}B`;
+  }
+  if (value >= 1_000_000) {
+    return `$${(value / 1_000_000).toFixed(2)}M`;
+  }
+  if (value >= 1_000) {
+    return `$${(value / 1_000).toFixed(1)}K`;
+  }
+  return `$${value.toFixed(2)}`;
 };
 
-const tokenIcons: { [key: string]: React.ReactNode } = {
-  BTC: <BtcIcon className="h-10 w-10 text-orange-400" />,
-  ETH: <EthIcon className="h-10 w-10 text-blue-400" />,
-  USDT: <UsdtIcon className="h-10 w-10 text-green-500" />,
-  BNB: <BnbIcon className="h-10 w-10 text-yellow-500" />,
-  SOL: <SolIcon className="h-10 w-10 text-purple-400" />,
-  Generic: <GenericTokenIcon className="h-10 w-10 text-gray-400" />,
+const UserIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="16"
+    height="16"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    {...props}
+  >
+    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+    <circle cx="9" cy="7" r="4" />
+    <path d="m16 11 2 2 4-4" />
+  </svg>
+);
+
+const ChefIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="16"
+    height="16"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    {...props}
+  >
+    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+    <path d="M8.5 2.5a2.5 2.5 0 0 1 5 0V5h-5V2.5z" />
+  </svg>
+);
+
+const TargetIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="16"
+    height="16"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    {...props}
+  >
+    <circle cx="12" cy="12" r="10" />
+    <circle cx="12" cy="12" r="6" />
+    <circle cx="12" cy="12" r="2" />
+  </svg>
+);
+
+const tagIcons: Record<StatTag["icon"], React.FC<any>> = {
+  user: UserIcon,
+  chef: ChefIcon,
+  target: TargetIcon,
+  ghost: Ghost,
+  cubes: CubesIcon,
 };
 
-export function TokenCard({ token, prevToken }: TokenCardProps) {
-  const [priceChange, setPriceChange] = useState<"up" | "down" | null>(null);
-
-  useEffect(() => {
-    if (prevToken && token.price !== prevToken.price) {
-      setPriceChange(token.price > prevToken.price ? "up" : "down");
-      const timer = setTimeout(() => setPriceChange(null), 1500);
-      return () => clearTimeout(timer);
-    }
-  }, [token.price, prevToken]);
-
-  const isPositiveChange = token.priceChange24hPercent >= 0;
-  const icon = tokenIcons[token.icon] || (
-    <GenericTokenIcon className="h-10 w-10 text-gray-400" />
-  );
-
+const Tag: React.FC<{ tag: StatTag }> = ({ tag }) => {
+  const Icon = tagIcons[tag.icon];
+  const colorClass = tag.color === "red" ? "text-red-400" : "text-green-400";
   return (
     <div
       className={cn(
-        "rounded-lg border bg-card text-card-foreground p-4 transition-shadow hover:shadow-lg",
-        priceChange === "up" && "animate-flash-green",
-        priceChange === "down" && "animate-flash-red"
+        "flex items-center gap-1 rounded-full bg-black/20 px-2 py-0.5",
+        colorClass
       )}
     >
-      <div className="flex items-start justify-between gap-4">
-        <div className="flex items-center gap-3">
-          {icon}
-          <div>
-            <div className="font-semibold text-foreground">{token.name}</div>
-            <div className="text-xs text-muted-foreground">{token.symbol}</div>
+      <Icon className="h-3 w-3" />
+      <span className="text-[10px] font-semibold">
+        {tag.value}
+        {tag.unit}
+      </span>
+      {tag.duration && (
+        <span className="text-[10px] text-muted-foreground">
+          {tag.duration}
+        </span>
+      )}
+    </div>
+  );
+};
+
+export function TokenCard({ token }: TokenCardProps) {
+  return (
+    <div className="p-3 font-body aspect-[4.6/1]">
+      <div className="grid h-full grid-cols-[auto_1fr_auto] items-start gap-3">
+        {/* Left Section */}
+        <div className="flex flex-col items-center gap-1.5">
+          <div className="relative h-16 w-16 flex-shrink-0">
+            <Image
+              src={token.imageUrl}
+              alt={token.name}
+              width={64}
+              height={64}
+              className="rounded-md border-2 border-green-400"
+            />
+            <div className="absolute -bottom-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-green-400">
+              <LinkIcon className="h-3 w-3 text-card" strokeWidth={3} />
+            </div>
+          </div>
+          <span className="font-code text-[10px] text-muted-foreground">
+            {token.creatorAddress}
+          </span>
+        </div>
+
+        {/* Center Section */}
+        <div className="flex flex-col justify-between self-stretch gap-1">
+          {/* Top part of center */}
+          <div className="flex flex-col gap-1">
+            <div className="flex items-baseline gap-1.5">
+              <h3 className="text-sm font-bold text-foreground truncate">
+                {token.name}
+              </h3>
+              <p className="text-xs text-muted-foreground truncate">
+                {token.subtitle}
+              </p>
+              <Copy className="h-3 w-3 text-muted-foreground flex-shrink-0 cursor-pointer" />
+            </div>
+
+            <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[10px] text-muted-foreground">
+              <span className="font-bold text-cyan-400">{token.age}</span>
+              <GlobeIcon className="h-3 w-3 cursor-pointer" />
+              <PillIcon className="h-3 w-3 cursor-pointer" />
+              <Search className="h-3 w-3 cursor-pointer" />
+              <div className="flex items-center gap-0.5">
+                {" "}
+                <Users className="h-3 w-3" /> <span>{token.stats.users}</span>{" "}
+              </div>
+              <div className="flex items-center gap-0.5">
+                {" "}
+                <CandlestickChart className="h-3 w-3" />{" "}
+                <span>{token.stats.candlesticks}</span>{" "}
+              </div>
+              <div className="flex items-center gap-0.5">
+                {" "}
+                <Trophy className="h-3 w-3" />{" "}
+                <span>{token.stats.trophies}</span>{" "}
+              </div>
+              <div className="flex items-center gap-0.5">
+                {" "}
+                <Crown className="h-3 w-3" /> <span>{token.stats.crowns}</span>{" "}
+              </div>
+            </div>
+          </div>
+          {/* Bottom part of center (tags) */}
+          <div className="flex flex-wrap items-center gap-1">
+            {token.tags.map((tag, index) => (
+              <Tag key={index} tag={tag} />
+            ))}
           </div>
         </div>
-        <div className="flex flex-col items-end">
-          <div className="font-medium tabular-nums text-foreground">
-            {formatCurrency(token.marketCap)}
+
+        {/* Right Section */}
+        <div className="flex flex-col items-end self-stretch justify-between">
+          <div className="text-right">
+            <div className="flex items-center justify-end gap-1.5 text-[10px]">
+              <span className="text-muted-foreground">MC</span>
+              <span className="font-bold text-cyan-400">
+                {formatCurrency(token.marketCap)}
+              </span>
+            </div>
+            <div className="flex items-center justify-end gap-1.5 text-[10px]">
+              <span className="text-muted-foreground">V</span>
+              <span>{formatCurrency(token.volume)}</span>
+            </div>
+            <div className="flex items-center justify-end gap-1 text-[10px] font-code">
+              <span className="text-muted-foreground">F</span>
+              <SolIcon className="h-2 w-2 text-purple-400" />
+              <span className="text-foreground">{token.fValue.toFixed(3)}</span>
+              <span className="text-muted-foreground">TX</span>
+              <span className="text-foreground">{token.txCount}</span>
+              <div className="h-1 w-3 rounded-full bg-gradient-to-r from-green-400 to-red-500"></div>
+            </div>
           </div>
-          <div className="text-xs text-muted-foreground">MC</div>
-        </div>
-      </div>
-      <div className="mt-4 flex items-end justify-between">
-        <div className="flex items-center gap-4 text-sm">
-          <div
-            className={cn(
-              "flex items-center gap-1 tabular-nums",
-              isPositiveChange ? "text-price-up" : "text-price-down"
-            )}
+          <Button
+            size="sm"
+            className="bg-blue-600 hover:bg-blue-700 text-white font-bold px-2 py-1 text-[10px] h-auto"
           >
-            {isPositiveChange ? (
-              <ArrowUp className="h-3 w-3" />
-            ) : (
-              <ArrowDown className="h-3 w-3" />
-            )}
-            <span>{Math.abs(token.priceChange24hPercent).toFixed(0)}%</span>
-          </div>
-          <div className="text-muted-foreground">
-            <span className="font-medium text-foreground">
-              {formatCurrency(token.volume24h)}
-            </span>
-            <span className="ml-1">Vol</span>
-          </div>
-        </div>
-        <div className="rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
-          {formatCurrency(token.price)}
+            <Zap className="mr-1 h-3 w-3 fill-white" />
+            {token.solAmount.toFixed(1)} SOL
+          </Button>
         </div>
       </div>
     </div>

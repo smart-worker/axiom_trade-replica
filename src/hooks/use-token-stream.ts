@@ -23,32 +23,19 @@ export function useTokenStream() {
 
         // Start the mock stream
         interval = setInterval(() => {
-          // Simulate a potential error
-          if (Math.random() < 0.01) { // 1% chance of error
-            const err = new Error("WebSocket connection lost");
-            setError(err);
-            clearInterval(interval);
-            return;
-          }
-
           const newTokens = dataRef.current.map(token => {
             // ~30% chance to update a token
             if (Math.random() < 0.3) {
-              const changePercent = (Math.random() - 0.5) * 0.05; // max 2.5% change
-              const newPrice = token.price * (1 + changePercent);
-              const priceChange = newPrice - token.price;
-              
-              const volumeChange = (Math.random() - 0.4) * 0.1; // max 10% change, slightly biased to increase
-              const newVolume = Math.max(0, token.volume24h * (1 + volumeChange));
-              
-              const newPriceChange24hPercent = token.priceChange24hPercent + (changePercent * 100);
-
               return {
                 ...token,
-                price: newPrice,
-                priceChange24h: token.priceChange24h + priceChange,
-                priceChange24hPercent: newPriceChange24hPercent,
-                volume24h: newVolume,
+                marketCap: token.marketCap * (1 + (Math.random() - 0.49) * 0.05),
+                volume: token.volume * (1 + (Math.random() - 0.4) * 0.1),
+                txCount: token.txCount + Math.floor(Math.random() * 5),
+                stats: {
+                  ...token.stats,
+                  users: token.stats.users + Math.floor(Math.random() * 3) - 1,
+                },
+                solAmount: token.solAmount + (Math.random() - 0.5) * 0.1,
               };
             }
             return token;
