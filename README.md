@@ -1,36 +1,26 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## DISCLAIMER
 
-## Getting Started
+This is Axiom Trade clone by Soham Sarkar from IIT Kharagpur for Placement purpose only.
 
-First, run the development server:
+## SCREENSHOTS
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### 1440px
+<img width="1709" height="953" alt="image" src="https://github.com/user-attachments/assets/989fd6a4-cf12-4afa-b5b9-5a53873a8905" />
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+<img width="1706" height="952" alt="image" src="https://github.com/user-attachments/assets/57220551-8dd4-4cd7-b6ef-627dbacbfe8e" />
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 1024px
+<img width="1023" height="866" alt="image" src="https://github.com/user-attachments/assets/7bb9b471-f8bc-43d2-b1ef-4d2cd6219620" />
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 768px
+<img width="767" height="864" alt="image" src="https://github.com/user-attachments/assets/9dcd8cf5-38e0-4a40-a95c-1b92bceff870" />
 
-## Learn More
+### 425px
+<img width="427" height="865" alt="image" src="https://github.com/user-attachments/assets/e78c075e-97f5-4f0a-bb59-66713b4bc87d" />
 
-To learn more about Next.js, take a look at the following resources:
+<img width="427" height="865" alt="image" src="https://github.com/user-attachments/assets/e209f451-9c98-4c58-a643-0235368c09dc" />
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 320px
+<img width="320" height="863" alt="image" src="https://github.com/user-attachments/assets/438c486d-cb26-45e0-8c87-22734e59762f" />
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+<img width="321" height="867" alt="image" src="https://github.com/user-attachments/assets/b9d180da-d442-4fc2-a8ce-9fa35062feb0" />
