@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { SlidersHorizontalIcon } from "../icons";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import { FilterModal } from "./filter-modal";
+import { PrioritySettingsPopover } from "./priority-settings-popover";
 
 interface TokenColumnProps {
   title: string;
@@ -34,27 +35,33 @@ export function TokenColumn({
               </div>
               <div className="h-2 w-6 rounded-full bg-gradient-to-r from-green-400 via-blue-500 to-purple-600"></div>
               <div className="flex items-center text-xs font-medium">
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="h-auto px-1.5 py-0 text-xs text-blue-400"
-                >
-                  P1
-                </Button>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="h-auto px-1.5 py-0 text-xs text-muted-foreground"
-                >
-                  P2
-                </Button>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="h-auto px-1.5 py-0 text-xs text-muted-foreground"
-                >
-                  P3
-                </Button>
+                <PrioritySettingsPopover>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="h-auto px-1.5 py-0 text-xs text-blue-400"
+                  >
+                    P1
+                  </Button>
+                </PrioritySettingsPopover>
+                <PrioritySettingsPopover>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="h-auto px-1.5 py-0 text-xs text-muted-foreground"
+                  >
+                    P2
+                  </Button>
+                </PrioritySettingsPopover>
+                <PrioritySettingsPopover>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="h-auto px-1.5 py-0 text-xs text-muted-foreground"
+                  >
+                    P3
+                  </Button>
+                </PrioritySettingsPopover>
               </div>
             </div>
             <Dialog>
@@ -72,7 +79,7 @@ export function TokenColumn({
           </div>
         </div>
       )}
-      <div className="thin-scrollbar flex-1 overflow-y-auto">
+      <div className="thin-scrollbar overflow-y-auto">
         <div className="flex flex-col">
           {tokens.map((token) => (
             <div key={token.id} className="border-b border-border">

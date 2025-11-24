@@ -26,19 +26,25 @@ const formatTxCount = (value: number) => {
 };
 
 export function TokenHoverCard({ token }: { token: Token }) {
+  const googleSearchUrl = `https://lens.google.com/uploadbyurl?url=${encodeURIComponent(
+    token.imageUrl
+  )}`;
+
   return (
     <div className="flex flex-col gap-2 p-2 text-foreground">
-      <div className="group relative w-full cursor-pointer overflow-hidden rounded-lg bg-card aspect-square">
-        <Image
-          src={token.imageUrl}
-          alt={token.name}
-          fill
-          className="object-cover"
-        />
-        <div className="absolute inset-0 z-10 hidden items-center justify-center rounded-md bg-black/50 group-hover:flex">
-          <Camera className="h-10 w-10 text-white" />
+      <a href={googleSearchUrl} target="_blank" rel="noopener noreferrer">
+        <div className="group relative w-full cursor-pointer overflow-hidden rounded-lg bg-card aspect-square">
+          <Image
+            src={token.imageUrl}
+            alt={token.name}
+            fill
+            className="object-cover"
+          />
+          <div className="absolute inset-0 z-10 hidden items-center justify-center rounded-md bg-black/50 group-hover:flex">
+            <Camera className="h-10 w-10 text-white" />
+          </div>
         </div>
-      </div>
+      </a>
 
       {token.similarTokens && token.similarTokens.length > 0 && (
         <div>
